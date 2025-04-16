@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService{
         }
 
         Tables table = (Tables) tablesRepo.findByTableNumber(reservationDTO.getTableNumber())
-                .orElseThrow(() -> new RuntimeException("Table not found with number: " + reservationDTO.getTableNumber()));
+                .orElseThrow(() -> new RuntimeException("Table not found with number : " + reservationDTO.getTableNumber()));
 
         Reservation reservation = Reservation.builder()
                 .name(reservationDTO.getName())

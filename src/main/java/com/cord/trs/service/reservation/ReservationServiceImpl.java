@@ -9,6 +9,7 @@ import com.cord.trs.repository.TableRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,7 +58,23 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public List<ReservationResponseDTO> getAllReservations() {
 
-        return List.of();
+        List<Reservation> reservations = reservationRepo.findAll();
+        List<ReservationResponseDTO> reservationResponseDTOS = new ArrayList<>();
+
+        for(Reservation reservation : reservations){
+
+            ReservationResponseDTO reservationResponseDTO = ReservationResponseDTO.builder()
+                    .name(reservation.getName())
+                    .phoneNumber(reservation.getPhoneNumber())
+                    .tableNumber(reservation.getTable().getTableNumber())
+                    .reservationDate(reservation.getReservationDate())
+                    .reservationTime(reservation.getReservationTime())
+                    .build();
+            reservationResponseDTOS.add(reservationResponseDTO);
+
+        }
+
+        return reservationResponseDTOS;
     }
 
     @Override

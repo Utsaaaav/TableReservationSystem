@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/reservation")
 @RequiredArgsConstructor
@@ -28,4 +30,5 @@ public class ReservationController extends BaseClass {
             return new ResponseEntity<>(failure("Failed to create reservation", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

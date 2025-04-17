@@ -1,4 +1,4 @@
-package com.cord.trs.service.reservation;
+package com.cord.trs.service.impl;
 
 import com.cord.trs.dto.ReservationDTO;
 import com.cord.trs.dto.ReservationResponseDTO;
@@ -8,6 +8,7 @@ import com.cord.trs.enums.TableStatus;
 import com.cord.trs.exception.AppException;
 import com.cord.trs.repository.ReservationRepo;
 import com.cord.trs.repository.TableRepo;
+import com.cord.trs.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void deleteReservation(long reservationId) {
 
-        reservationRepo.deleteById(reservationId);
+        Reservation optionalReservation = reservationRepo.findById(reservationId).orElseThrow(() -> new AppException("Reservation not found."));
+        reservationRepo.delete(optionalReservation);
 
     }
 

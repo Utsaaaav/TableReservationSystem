@@ -7,8 +7,6 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 
 public class ReservationResponseDTO {

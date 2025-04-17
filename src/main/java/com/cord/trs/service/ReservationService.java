@@ -1,4 +1,4 @@
-package com.cord.trs.service.reservation;
+package com.cord.trs.service;
 
 import com.cord.trs.dto.ReservationDTO;
 import com.cord.trs.dto.ReservationResponseDTO;

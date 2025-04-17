@@ -3,7 +3,7 @@ package com.cord.trs.controller;
 import com.cord.trs.dto.GlobalApiResponse;
 import com.cord.trs.dto.TableRequestDTO;
 import com.cord.trs.dto.TablesResponseDTO;
-import com.cord.trs.service.table.TableService;
+import com.cord.trs.service.TableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

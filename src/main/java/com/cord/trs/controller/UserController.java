@@ -2,7 +2,7 @@ package com.cord.trs.controller;
 
 import com.cord.trs.dto.GlobalApiResponse;
 import com.cord.trs.dto.UserBaseDTO;
-import com.cord.trs.service.user.UserService;
+import com.cord.trs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

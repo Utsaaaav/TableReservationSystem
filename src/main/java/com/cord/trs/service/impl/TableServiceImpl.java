@@ -1,16 +1,16 @@
-package com.cord.trs.service.table;
+package com.cord.trs.service.impl;
 
 import com.cord.trs.dto.TableRequestDTO;
 import com.cord.trs.dto.TablesResponseDTO;
 import com.cord.trs.entity.Tables;
 import com.cord.trs.enums.TableStatus;
 import com.cord.trs.repository.TableRepo;
+import com.cord.trs.service.TableService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -61,8 +61,9 @@ public class TableServiceImpl implements TableService {
 
     @Override
     public void deleteTable(long tableId) {
-
-        tableRepo.deleteById(tableId);
+        Tables exTable = tableRepo.findById(tableId)
+                .orElseThrow(() -> new RuntimeException("Table not found with ID: " + tableId));
+        tableRepo.delete(exTable);
 
     }
 

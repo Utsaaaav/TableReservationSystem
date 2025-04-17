@@ -1,4 +1,4 @@
-package com.cord.trs.service.table;
+package com.cord.trs.service;
 
 import com.cord.trs.dto.TableRequestDTO;
 import com.cord.trs.dto.TablesResponseDTO;

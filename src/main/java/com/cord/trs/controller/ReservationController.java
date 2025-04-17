@@ -3,7 +3,7 @@ package com.cord.trs.controller;
 import com.cord.trs.dto.GlobalApiResponse;
 import com.cord.trs.dto.ReservationDTO;
 import com.cord.trs.dto.ReservationResponseDTO;
-import com.cord.trs.service.reservation.ReservationService;
+import com.cord.trs.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

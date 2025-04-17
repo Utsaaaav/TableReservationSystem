@@ -1,9 +1,10 @@
-package com.cord.trs.service.user;
+package com.cord.trs.service.impl;
 
 import com.cord.trs.dto.UserBaseDTO;
 import com.cord.trs.entity.User;
 import com.cord.trs.enums.Role;
 import com.cord.trs.repository.UserRepo;
+import com.cord.trs.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

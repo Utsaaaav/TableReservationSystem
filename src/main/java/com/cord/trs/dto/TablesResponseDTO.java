@@ -3,8 +3,6 @@ package com.cord.trs.dto;
 import com.cord.trs.enums.TableStatus;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Builder

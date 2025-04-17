@@ -4,6 +4,8 @@ import com.cord.trs.enums.TableStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @jakarta.persistence.Table(name = "table_tbl")
 
@@ -27,5 +29,8 @@ public class Tables {
     @Enumerated(EnumType.STRING)
     @Column(name = "table_status", length = 50)
     private TableStatus tableStatus;
+
+    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations;
 
 }

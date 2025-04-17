@@ -1,4 +1,4 @@
-package com.cord.trs.service.user;
+package com.cord.trs.service;
 
 import com.cord.trs.dto.UserBaseDTO;
 import org.springframework.stereotype.Component;

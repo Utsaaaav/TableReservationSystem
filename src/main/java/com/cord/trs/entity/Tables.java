@@ -30,7 +30,7 @@ public class Tables {
     @Column(name = "table_status", length = 50)
     private TableStatus tableStatus;
 
-    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
 }

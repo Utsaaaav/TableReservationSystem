@@ -69,8 +69,8 @@ public class TableServiceImpl implements TableService {
     @Override
     public void updateTable(TablesResponseDTO tablesdto) {
 
-        Optional<Tables> optionalTable = tableRepo.findById(tablesdto.getId());
-        Tables exTable = optionalTable.get();
+        Tables exTable = tableRepo.findById(tablesdto.getId())
+                .orElseThrow(() -> new RuntimeException("Table not found with ID: " + tablesdto.getId()));
         exTable.setTableNumber(tablesdto.getTableNumber());
         exTable.setTableStatus(tablesdto.getTableStatus());
 

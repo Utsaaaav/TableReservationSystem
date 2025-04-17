@@ -14,61 +14,57 @@ import java.util.List;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 
-public class UserController extends BaseClass{
+public class UserController extends BaseClass {
 
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<GlobalApiResponse> createUser(@RequestBody UserBaseDTO userBaseDTO){
+    public ResponseEntity<GlobalApiResponse> createUser(@RequestBody UserBaseDTO userBaseDTO) {
 
         UserBaseDTO user = userService.createUser(userBaseDTO);
 
-        if(user != null){
+        if (user != null) {
             return new ResponseEntity<>(success("User Created Successfully", user), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(failure("User Creation Failed", null),HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(failure("User Creation Failed", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/list")
-    public ResponseEntity<GlobalApiResponse> listUser(){
+    public ResponseEntity<GlobalApiResponse> listUser() {
 
         List<UserBaseDTO> userBaseDTOS = userService.getAllUser();
 
-        if(userBaseDTOS != null){
+        if (userBaseDTOS != null) {
             return new ResponseEntity<>(success("User List Fetched Successfully", userBaseDTOS), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(failure("Unable to fetch user list", null),HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(failure("Unable to fetch user list", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<GlobalApiResponse> deleteUser(@PathVariable int id){
+    public ResponseEntity<GlobalApiResponse> deleteUser(@PathVariable int id) {
 
         userService.deleteUser(id);
         boolean flag = userService.getById(id);
 
-        if(flag == true){
-            return new ResponseEntity<>(success("User Deleted Successfully", id),HttpStatus.OK);
-        }
-        else{
+        if (flag == true) {
+            return new ResponseEntity<>(success("User Deleted Successfully", id), HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(failure("Unable to delete user", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/update")
-    public ResponseEntity<GlobalApiResponse> updateUser(@RequestBody UserBaseDTO userBaseDTO){
+    public ResponseEntity<GlobalApiResponse> updateUser(@RequestBody UserBaseDTO userBaseDTO) {
 
         userService.updateUser(userBaseDTO);
 
-        if(userBaseDTO != null){
+        if (userBaseDTO != null) {
             return new ResponseEntity<>(success("User Updated Successfully", userBaseDTO), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(failure("Unable to update user",null), HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(failure("Unable to update user", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

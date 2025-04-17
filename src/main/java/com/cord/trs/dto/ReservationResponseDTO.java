@@ -13,6 +13,7 @@ import java.time.LocalTime;
 
 public class ReservationResponseDTO {
 
+    private long reservationId;
     private String name;
     private String phoneNumber;
     private String tableNumber;

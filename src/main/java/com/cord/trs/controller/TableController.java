@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/tables")
@@ -18,7 +19,7 @@ public class TableController extends BaseClass {
 
     private final TableService tableService;
 
-    @PostMapping("/addTable")
+    @PostMapping("/add-table")
     public ResponseEntity<GlobalApiResponse> addTables(@RequestBody TableRequestDTO tablesDTO){
 
         TablesResponseDTO tabledto = tableService.addTable(tablesDTO);
@@ -31,7 +32,7 @@ public class TableController extends BaseClass {
         }
     }
 
-    @GetMapping("/listTable")
+    @GetMapping("/list-table")
     public ResponseEntity<GlobalApiResponse> listTables(){
 
         List<TablesResponseDTO> tabledto = tableService.getAllTables();
@@ -58,7 +59,7 @@ public class TableController extends BaseClass {
     }
 
 
-    @PutMapping("/updateTable")
+    @PutMapping("/update-table")
     public ResponseEntity<GlobalApiResponse> updateTable(@RequestBody TablesResponseDTO tabledto){
 
         tableService.updateTable(tabledto);

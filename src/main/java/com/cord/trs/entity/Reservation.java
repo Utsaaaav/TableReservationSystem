@@ -34,9 +34,6 @@ public class Reservation {
     @Column(name = "reservation_time", length = 150)
     private LocalTime reservationTime;
 
-    @Column(name = "number_of_guest", length = 250)
-    private int numberOfGuest;
-
     @Column(name = "user_name", length = 250)
     private String name;
 

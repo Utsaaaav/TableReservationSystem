@@ -17,4 +17,6 @@ public interface ReservationService {
 
     boolean getByID(long reservationId);
 
+    void updateReservation(ReservationResponseDTO reservationDTo);
+
 }

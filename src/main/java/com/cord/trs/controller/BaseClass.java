@@ -1,9 +1,11 @@
 package com.cord.trs.controller;
 
 import com.cord.trs.dto.GlobalApiResponse;
+import lombok.Builder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Builder
 public class BaseClass {
 
     public GlobalApiResponse success(String message, Object data) {

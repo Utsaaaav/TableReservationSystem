@@ -1,15 +1,12 @@
 package com.cord.trs.entity;
 
 
-import com.cord.trs.enums.ReservationStatus;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "reservation_tbl")

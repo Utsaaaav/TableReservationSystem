@@ -4,6 +4,7 @@ import com.cord.trs.dto.ReservationDTO;
 import com.cord.trs.dto.ReservationResponseDTO;
 import com.cord.trs.entity.Reservation;
 import com.cord.trs.entity.Tables;
+import com.cord.trs.enums.TableStatus;
 import com.cord.trs.exception.AppException;
 import com.cord.trs.repository.ReservationRepo;
 import com.cord.trs.repository.TableRepo;
@@ -43,6 +44,9 @@ public class ReservationServiceImpl implements ReservationService {
                 .reservationTime(reservationDTO.getReservationTime())
                 .build();
         reservationRepo.save(reservation);
+
+        table.setTableStatus(TableStatus.RESERVED);
+        tablesRepo.save(table);
 
         ReservationResponseDTO reservationResponseDTO = ReservationResponseDTO.builder().name(reservationDTO.getName()).phoneNumber(reservationDTO.getPhoneNumber()).tableNumber(reservation.getTable().getTableNumber()).reservationDate(reservationDTO.getReservationDate()).reservationTime(reservationDTO.getReservationTime()).build();
 

@@ -22,44 +22,43 @@ public class ReservationController extends BaseClass {
     @PostMapping("/create")
     public ResponseEntity<GlobalApiResponse> reserve(@RequestBody ReservationDTO reservationdto) {
         ReservationResponseDTO reservationResponseDTO = reservationService.addReservation(reservationdto);
-            return new ResponseEntity<>(success("Reservation created successfully", reservationResponseDTO), HttpStatus.OK);
+        return new ResponseEntity<>(success("Reservation created successfully", reservationResponseDTO), HttpStatus.OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity<GlobalApiResponse> listAllReservations() {
 
-        List<ReservationResponseDTO> reservationResponseDTOS = reservationService.getAllReservations();
-        if (reservationResponseDTOS != null) {
+        try {
+            List<ReservationResponseDTO> reservationResponseDTOS = reservationService.getAllReservations();
             return new ResponseEntity<>(success("Reservations Listed Successfully", reservationResponseDTOS), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(failure("Unable to list all reservations", null), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            return new ResponseEntity<>(failure(e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
-    @PostMapping("/delete/{reservationId}")
-    public ResponseEntity<GlobalApiResponse> deleteReservation(@PathVariable long reservationId){
+    @DeleteMapping("/delete/{reservationId}")
+    public ResponseEntity<GlobalApiResponse> deleteReservation(@PathVariable long reservationId) {
 
         reservationService.deleteReservation(reservationId);
         boolean flag = reservationService.getByID(reservationId);
-        if(flag == true){
+        if (flag == true) {
             return new ResponseEntity<>(success("Reservation deleted successfully", reservationId), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(failure("Unable to delete reservation",null),HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(failure("Unable to delete reservation", null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<GlobalApiResponse> updateReservation(@RequestBody ReservationResponseDTO responseDTO){
-
-        reservationService.updateReservation(responseDTO);
-        if(responseDTO != null){
-            return new ResponseEntity<>(success("Reservation Updated Successfully", responseDTO), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(failure("Unable to update reservation", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PutMapping("/update")
+//    public ResponseEntity<GlobalApiResponse> updateReservation(@RequestBody ReservationResponseDTO responseDTO) {
+//
+//        try{
+//            reservationService.updateReservation(responseDTO);
+//            return new ResponseEntity<>(success("Reservation Updated Successfully", responseDTO), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(failure("Unable to update reservation", null), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//    }
 
 }

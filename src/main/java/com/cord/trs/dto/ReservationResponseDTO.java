@@ -15,7 +15,7 @@ public class ReservationResponseDTO {
     private String name;
     private String phoneNumber;
     private String tableNumber;
-    private LocalDate reservationDate;
-    private LocalTime reservationTime;
+    private LocalDate date;
+    private LocalTime time;
 
 }

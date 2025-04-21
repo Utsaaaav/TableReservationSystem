@@ -22,30 +22,29 @@ public class TableController extends BaseClass {
     @PostMapping("/add-table")
     public ResponseEntity<GlobalApiResponse> addTables(@RequestBody TableRequestDTO tablesDTO){
 
-        TablesResponseDTO tabledto = tableService.addTable(tablesDTO);
-
-        if(tabledto != null){
+        try{
+            TablesResponseDTO tabledto = tableService.addTable(tablesDTO);
             return new ResponseEntity<>(success("Table added successfully", tabledto), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(failure(e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        else {
-            return new ResponseEntity<>(failure("Unable to add table", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
     @GetMapping("/list-table")
     public ResponseEntity<GlobalApiResponse> listTables(){
 
-        List<TablesResponseDTO> tabledto = tableService.getAllTables();
-
-        if(tabledto != null){
+        try{
+            List<TablesResponseDTO> tabledto = tableService.getAllTables();
             return new ResponseEntity<>(success("Table Listed Successfully", tabledto),HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(failure("Unable to list tables", null), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(failure(e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/delete/{tableId}")
+    @DeleteMapping ("/delete/{tableId}")
     public ResponseEntity<GlobalApiResponse> deleteTable(@PathVariable int tableId){
 
         tableService.deleteTable(tableId);
@@ -58,17 +57,16 @@ public class TableController extends BaseClass {
         }
     }
 
-
     @PutMapping("/update-table")
     public ResponseEntity<GlobalApiResponse> updateTable(@RequestBody TablesResponseDTO tabledto){
 
-        tableService.updateTable(tabledto);
-        if(tabledto != null){
+        try{
+            tableService.updateTable(tabledto);
             return new ResponseEntity<>(success("Table Updated Successfully", tabledto), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(failure(e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        else{
-            return new ResponseEntity<>(failure("Unable to update table", null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
 }

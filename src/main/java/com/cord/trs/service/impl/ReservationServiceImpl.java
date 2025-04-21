@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +26,8 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationResponseDTO addReservation(ReservationDTO reservationDTO) {
 
         //check if table is already booked
-        boolean exists = reservationRepo.existsByReservationDateAndReservationTimeAndTable_TableNumber(reservationDTO.getReservationDate(),
-                reservationDTO.getReservationTime(),
+        boolean exists = reservationRepo.existsByReservationDateAndReservationTimeAndTable_TableNumber(reservationDTO.getDate(),
+                reservationDTO.getTime(),
                 reservationDTO.getTableNumber());
         if (exists) {
             throw new AppException("Table is already booked at this time.");
@@ -41,15 +40,21 @@ public class ReservationServiceImpl implements ReservationService {
                 .name(reservationDTO.getName())
                 .phoneNumber(reservationDTO.getPhoneNumber())
                 .table(table)
-                .reservationDate(reservationDTO.getReservationDate())
-                .reservationTime(reservationDTO.getReservationTime())
+                .reservationDate(reservationDTO.getDate())
+                .reservationTime(reservationDTO.getTime())
                 .build();
         reservationRepo.save(reservation);
 
         table.setTableStatus(TableStatus.RESERVED);
         tablesRepo.save(table);
 
-        ReservationResponseDTO reservationResponseDTO = ReservationResponseDTO.builder().name(reservationDTO.getName()).phoneNumber(reservationDTO.getPhoneNumber()).tableNumber(reservation.getTable().getTableNumber()).reservationDate(reservationDTO.getReservationDate()).reservationTime(reservationDTO.getReservationTime()).build();
+        ReservationResponseDTO reservationResponseDTO = ReservationResponseDTO.builder()
+                .name(reservationDTO.getName())
+                .phoneNumber(reservationDTO.getPhoneNumber())
+                .tableNumber(reservation.getTable().getTableNumber())
+                .date(reservationDTO.getDate())
+                .time(reservationDTO.getTime())
+                        .build();
 
         return reservationResponseDTO;
     }
@@ -62,19 +67,22 @@ public class ReservationServiceImpl implements ReservationService {
 
         for (Reservation reservation : reservations) {
 
-            ReservationResponseDTO reservationResponseDTO = ReservationResponseDTO.builder().reservationId(reservation.getReservationId()).name(reservation.getName()).phoneNumber(reservation.getPhoneNumber()).tableNumber(reservation.getTable().getTableNumber()).reservationDate(reservation.getReservationDate()).reservationTime(reservation.getReservationTime()).build();
+            ReservationResponseDTO reservationResponseDTO = ReservationResponseDTO.builder().reservationId(reservation.getReservationId()).name(reservation.getName()).phoneNumber(reservation.getPhoneNumber()).tableNumber(reservation.getTable().getTableNumber())
+                    .date(reservation.getReservationDate()).time(reservation.getReservationTime()).build();
             reservationResponseDTOS.add(reservationResponseDTO);
 
         }
-
         return reservationResponseDTOS;
     }
 
     @Override
     public void deleteReservation(long reservationId) {
 
-        Reservation optionalReservation = reservationRepo.findById(reservationId).orElseThrow(() -> new AppException("Reservation not found."));
+        Reservation optionalReservation = reservationRepo.findByTable_Id(reservationId).orElseThrow(() -> new AppException("Reservation not found."));
+        Tables table = optionalReservation.getTable();
+        table.setTableStatus(TableStatus.AVAILABLE);
         reservationRepo.delete(optionalReservation);
+        tablesRepo.save(table);
 
     }
 
@@ -83,19 +91,19 @@ public class ReservationServiceImpl implements ReservationService {
         return true;
     }
 
-    @Override
-    public void updateReservation(ReservationResponseDTO reservationDTo) {
-
-        Optional<Reservation> optionalReservation = reservationRepo.findById(reservationDTo.getReservationId());
-        Reservation existingReservation = optionalReservation.get();
-        existingReservation.setReservationId(reservationDTo.getReservationId());
-        existingReservation.setName(reservationDTo.getName());
-        existingReservation.setPhoneNumber(reservationDTo.getPhoneNumber());
-        existingReservation.setTable(existingReservation.getTable());
-        existingReservation.setReservationTime(reservationDTo.getReservationTime());
-        existingReservation.setReservationDate(reservationDTo.getReservationDate());
-
-        reservationRepo.save(existingReservation);
-
-    }
+//    @Override
+//    public void updateReservation(ReservationResponseDTO reservationDTo) {
+//
+//        Optional<Reservation> optionalReservation = reservationRepo.findById(reservationDTo.getReservationId());
+//        Reservation existingReservation = optionalReservation.get();
+//        existingReservation.setReservationId(reservationDTo.getReservationId());
+//        existingReservation.setName(reservationDTo.getName());
+//        existingReservation.setPhoneNumber(reservationDTo.getPhoneNumber());
+//        existingReservation.setTable(existingReservation.getTable());
+//        existingReservation.setReservationTime(reservationDTo.getReservationTime());
+//        existingReservation.setReservationDate(reservationDTo.getReservationDate());
+//
+//        reservationRepo.save(existingReservation);
+//
+//    }
 }
